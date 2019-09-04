@@ -9,7 +9,7 @@ from time import time
 from jwt import PyJWS
 from .edalgorithm import EDAlgorithm
 
-REST_HOST = 'https://api.chaince.com'
+REST_HOST = 'https://api.hoo.com'
 
 class ChainceRestApi(object):
     """"""
