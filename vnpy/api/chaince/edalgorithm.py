@@ -14,6 +14,9 @@ def base64url_decode(input):
 class EDAlgorithm(Algorithm):
 
     def prepare_key(self, key):
+        # 根据python版本使用不用的数据类型
+        # py2: isinstance(key, unicode)
+        # py3: isinstance(key, str)
         if isinstance(key, unicode):
             key = key.encode('utf-8')
 
