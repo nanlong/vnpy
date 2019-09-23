@@ -101,7 +101,9 @@ class ChainceRestApi(object):
     #----------------------------------------------------------------------
     def generateSignature(self):
         """生成签名"""
-        payload = '{"key": "%s", "iat": %s}' % (self.apiKey, int(time() + 10000))
+        # py2: payload = '{"key": "%s", "iat": %s}' % (self.apiKey, time())
+        # py3: payload = bytes('{"key": "%s", "iat": %s}' % (self.apiKey, time()), encoding="utf8")
+        payload = '{"key": "%s", "iat": %s}' % (self.apiKey, time())
         signature = self.jws.encode(payload, self.secretKey, algorithm='Ed25519')
         return signature
 
