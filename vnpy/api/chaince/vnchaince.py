@@ -101,10 +101,17 @@ class ChainceRestApi(object):
     #----------------------------------------------------------------------
     def generateSignature(self):
         """生成签名"""
-        # py2: payload = '{"key": "%s", "iat": %s}' % (self.apiKey, time())
-        # py3: payload = bytes('{"key": "%s", "iat": %s}' % (self.apiKey, time()), encoding="utf8")
         payload = '{"key": "%s", "iat": %s}' % (self.apiKey, time())
-        signature = self.jws.encode(payload, self.secretKey, algorithm='Ed25519')
+        
+        try:
+          # py2
+          signature = jws.encode(payload, secretKey, algorithm='Ed25519')
+        except TypeError:
+          # py3
+          payload = bytes(payload, encoding="utf-8")
+          bearer = jws.encode(payload, secretKey, algorithm='Ed25519')
+          signature = str(bearer, encoding="utf-8")
+            
         return signature
 
     #----------------------------------------------------------------------
