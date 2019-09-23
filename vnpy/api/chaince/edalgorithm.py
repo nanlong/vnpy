@@ -14,11 +14,14 @@ def base64url_decode(input):
 class EDAlgorithm(Algorithm):
 
     def prepare_key(self, key):
-        # 根据python版本使用不用的数据类型
-        # py2: isinstance(key, unicode)
-        # py3: isinstance(key, str)
-        if isinstance(key, unicode):
-            key = key.encode('utf-8')
+        try:
+            # py2
+            if isinstance(key, unicode):
+                key = key.encode('utf-8')
+        except NameError:
+            # py3
+            if isinstance(key, str):
+                key = key.encode('utf-8')
 
         if isinstance(key, bytes):
             if len(key) == 43:
