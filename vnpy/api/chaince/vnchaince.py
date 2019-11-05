@@ -101,7 +101,7 @@ class ChainceRestApi(object):
     #----------------------------------------------------------------------
     def generateSignature(self):
         """生成签名"""
-        payload = '{"key": "%s", "iat": %s}' % (self.apiKey, time())
+        payload = '{"key": "%s", "iat": %s}' % (self.apiKey, int(time()))
         
         try:
           # py2
